@@ -52,6 +52,8 @@ public class InjectBuildScansAction {
 
     @Action("inject-build-scans")
     void injectBuildScans(Context context, Commands commands, Inputs inputs, GitHub github) {
+        commands.notice("Injecting build scans into build report");
+
         Path buildMetadataJson = null;
 
         Optional<String> buildMetadataFilePath = inputs.get("build-metadata-file-path");
