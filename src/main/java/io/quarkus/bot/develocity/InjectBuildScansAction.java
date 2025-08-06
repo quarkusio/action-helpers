@@ -126,9 +126,18 @@ public class InjectBuildScansAction {
 
             GHIssueComment reportComment = reportCommentCandidate.get();
 
+            System.out.println("==== Comment ====");
+            System.out.println(reportComment.getBody());
+            System.out.println("==== /Comment ====");
+
+            System.out.println("==== Build scan mapping ====");
+            System.out.println(buildScanMapping);
+            System.out.println("==== /Build scan mapping ====");
+
             String updatedCommentBody = reportComment.getBody().lines().map(line -> {
                 for (Entry<String, String> buildScanEntry : buildScanMapping.entrySet()) {
                     if (line.contains("| " + buildScanEntry.getKey() + " |")) {
+                        System.out.println("Replace match: " + line.contains(":construction:"));
                         return line.replace(":construction:", "[:mag:](" + buildScanEntry.getValue() + ")");
                     }
                 }
