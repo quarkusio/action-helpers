@@ -13,11 +13,12 @@ import io.quarkiverse.githubaction.Context;
 import io.quarkiverse.githubaction.Inputs;
 
 public class MaintainOneCommentAction {
+    private static final String DEFAULT_BODY_MARKER = "<!-- Sticky Comment -->";
 
     @Action("maintain-one-comment")
     void maintainOneComment(Context context, Inputs inputs, GitHub gitHub) throws IOException {
         String body = inputs.getRequired("body");
-        String bodyMarker = inputs.getRequired("body-marker");
+        String bodyMarker = inputs.get("body-marker").orElse(DEFAULT_BODY_MARKER);
         int prNumber = inputs.getRequiredInt("pr-number");
 
         GHRepository repository = gitHub.getRepository(context.getGitHubRepository());
