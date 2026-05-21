@@ -25,17 +25,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
+    - name: Run action
+      uses: jbangdev/jbang-action@main
       with:
-        java-version: 17
-        distribution: temurin
-    - id: install-jbang
-      run: curl -Ls https://sh.jbang.dev | bash -s - app setup
-      shell: bash
-    - id: action
-      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/quarkusio/action-helpers/' --repos 'mavencentral' io.quarkus.bot:action-helpers:999-SNAPSHOT
-      shell: bash
+        script: io.quarkus.bot:action-helpers:999-SNAPSHOT
+        jbangargs: "--repos 'github=https://x-access-token:${GITHUB_TOKEN}@maven.pkg.github.com/quarkusio/action-helpers/' --repos 'mavencentral'"
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
