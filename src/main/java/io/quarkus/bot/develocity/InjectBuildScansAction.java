@@ -327,7 +327,7 @@ public class InjectBuildScansAction {
             }
             return 51;
         }
-        if (jobName.startsWith("Quickstarts Compilation")) {
+        if (jobName.startsWith("Quickstarts")) {
             return 61;
         }
         if (jobName.startsWith("MicroProfile TCKs Tests")) {
