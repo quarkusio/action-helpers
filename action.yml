@@ -54,5 +54,10 @@ runs:
         jbang --java 25 --fresh --repos 'quarkus-github-action=https://maven.pkg.github.com/quarkusio/action-helpers/' --repos 'mavencentral' io.quarkus.bot:action-helpers:999-SNAPSHOT
       shell: bash
       env:
+        # Ensure the JVM decodes environment variables (e.g. JSON_INPUTS) as
+        # UTF-8 on runners without a UTF-8 locale (such as ubuntu-slim),
+        # where sun.jnu.encoding would otherwise fall back to US-ASCII and
+        # mangle non-ASCII characters
+        LANG: C.UTF-8
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
